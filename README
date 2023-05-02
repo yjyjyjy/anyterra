@@ -1,0 +1,11 @@
+## Working with GPU Optimized AMIs
+
+- To get ECS Tasks to work with the GPU in GPU enabled Instances please use Amazon ECS GPU-optimized AMIs, Refer to https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html
+- Please refer to https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
+- Find AMI ID using the following aws cli commands
+
+```bash
+aws ssm get-parameters-by-path --path /aws/service/ecs/optimized-ami/amazon-linux-2/gpu/ --query 'Parameters[].Value' --output text | jq -r '. | "\(.image_name) \(.image_id)" ' | sort
+```
+- DISCLAIMER: the above command works on linux and needs `jq` installed. If you are not using linux, you can remove the sort part of the command and install jq to run the command.
+- After the above command find the latest image. 

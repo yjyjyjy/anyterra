@@ -1,0 +1,44 @@
+[
+    {
+        "name" : "${task_manager_name}",
+        "image" : "${task_manager_image}",
+        "cmd": "${task_manager_cmd}",
+
+        "cpu" : ${task_manager_cpu},
+        "memory" : ${task_manager_memory},
+        "memoryReservation" : ${task_manager_memory_reservation},
+
+        "hostname" : "${task_manager_hostname}",
+
+        "essential" : true
+    },
+    {
+        "name" : "${worker_name}",
+        "image" : "${worker_image}",
+        "cmd": "${worker_cmd}",
+
+        "cpu" : ${worker_cpu},
+        "memory" : ${worker_memory},
+        "memoryReservation" : ${worker_memory_reservation},
+
+        "hostname" : "${worker_hostname}",
+
+        "mountPoints" : [
+            {
+                "sourceVolume": "${efs_source_volume_name}",
+                "containerPath": "${worker_container_mount_path}",
+                "readOnly": true
+            }
+        ],
+
+        "resourceRequirements" : [
+            {
+                "type" : "GPU",
+                "value" : "${worker_gpu_requirement_count}"
+            }
+        ],
+
+
+        "essential" : true
+    }
+]
