@@ -1,10 +1,9 @@
 locals {
-  resource_prefix = "stable_diffusion"
-  
-  sqs_queue_prefix              = "stable_diffusion"
-  free_queues_resource_prefix   = "stable_diffusion_free"
-  premium_queue_resource_prefix = "stable_diffusion_premium"
-  artifact_bucket_name          = "stablediffusoinbucket"
+  resource_prefix = "anydream"
+  sqs_queue_prefix              = "anydream_queue"
+  free_queues_resource_prefix   = "anydream_queue_free"
+  premium_queue_resource_prefix = "anydream_queue_premium"
+  artifact_bucket_name          = "anydream-gen-storage"
 }
 
 locals {
@@ -26,7 +25,7 @@ locals {
   asg_ssh_ips         = [
 
   ] # NOTICE: FILL
-  asg_target_capacity = 13          # NOTICE: Calibrate
+  asg_target_capacity = 2          # NOTICE: Calibrate
 }
 
 # free queue configuration
