@@ -1,31 +1,42 @@
 locals {
-  resource_prefix = "anydream"
-  sqs_queue_prefix              = "anydream_queue"
-  free_queues_resource_prefix   = "anydream_queue_free"
-  premium_queue_resource_prefix = "anydream_queue_premium"
-  artifact_bucket_name          = "anydream-gen-storage"
+  resource_prefix               = "real"
+  sqs_queue_prefix              = "real_queue"
+  free_queues_resource_prefix   = "real_queue_free"
+  premium_queue_resource_prefix = "real_queue_premium"
+  # artifact_bucket_name          = "anydream-gen-storage"
 }
 
 locals {
-  global_vpc_id = ""        # NOTICE: Fill
-  global_subnet_ids = [
+  artifact_bucket_name = "a1-generated"
+  artifact_bucket_arn  = "arn:aws:s3:::${local.artifact_bucket_name}"
+  access_key_name = "aws"
+}
 
-  ]                                 # NOTICE: FILL
+locals {
+  global_vpc_id = "vpc-0d151afb4b1f19e05" # NOTICE: Fill
+  global_subnet_ids = [
+    "subnet-0a73374ec206acaa3",
+    "subnet-07ab183b928a5144d",
+    "subnet-0b3883ee71e869d8d",
+    "subnet-0b6ff9dd7da01e5da",
+    "subnet-0930257763db324ff",
+    "subnet-0a7a2f217776c31ed",
+  ] # NOTICE: FILL
 }
 
 # asg configuration
 locals {
   asg_min_size = 1
-  asg_max_size = 4
+  asg_max_size = 2
 
   asg_instance_type   = "g4dn.xlarge"
-  asg_image_id        = "ami-05ec607d5b84572e5" # please refer to README
-  asg_access_key_name = ""           # NOTICE: FILL
+  asg_image_id        = "ami-0833412fdba53c144" # please refer to README
+  asg_access_key_name = "aws"                      # NOTICE: FILL
 
-  asg_ssh_ips         = [
-
-  ] # NOTICE: FILL
-  asg_target_capacity = 2          # NOTICE: Calibrate
+  asg_ssh_ips = [
+	  "0.0.0.0/0"
+  ]                       # NOTICE: FILL
+  asg_target_capacity = 1 # NOTICE: Calibrate
 }
 
 # free queue configuration
@@ -62,38 +73,38 @@ locals {
 # workers task definitation configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = ""      # NOTICE: FILL
-  task_manager_cmd                = ""      # NOTICE: FILL
-  task_manager_cpu                = ""      # NOTICE: FILL
-  task_manager_memory             = ""      # NOTICE: FILL
-  task_manager_memory_reservation = ""      # NOTICE: FILL
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager:v1" # NOTICE: FILL
+  task_manager_cmd                = "" # NOTICE: FILL
+  task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
+  task_manager_memory             = "2048" # NOTICE: FILL
+  task_manager_memory_reservation = "" # NOTICE: FILL
 
   # worker configuration
-  worker_docker_image          = ""         # NOTICE: FILL
-  worker_cmd                   = ""         # NOTICE: FILL
-  worker_cpu                   = ""         # NOTICE: FILL
-  worker_memory                = ""         # NOTICE: FILL
-  worker_memory_reservation    = ""         # NOTICE: FILL
+  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker:v1" # NOTICE: FILL
+  worker_cmd                   = "" # NOTICE: FILL
+  worker_cpu                   = "2048" # NOTICE: FILL
+  worker_memory                = "10240" # NOTICE: FILL
+  worker_memory_reservation    = "6144" # NOTICE: FILL
   worker_gpu_requirement_count = 1
 
-  # efs configuration
-  efs_filesystem_id         = ""    # NOTICE: FILL
-  efs_root_directory        = "/"
-  efs_container_mount_point = ""    # NOTICE: FILL
+  # # efs configuration
+  # efs_filesystem_id         = "" # NOTICE: FILL
+  # efs_root_directory        = "/"
+  # efs_container_mount_point = "" # NOTICE: FILL
 
   # ecs task limits
-  ecs_task_cpu_hard_limit    = ""   # NOTICE: FILL
-  ecs_task_memory_hard_limit = ""   # NOTICE: FILL
+  ecs_task_cpu_hard_limit    = "" # NOTICE: FILL sum of the two tasks
+  ecs_task_memory_hard_limit = "" # NOTICE: FILL
 }
 
 # redis configuration
 locals {
-  redis_node_type = "cache.t3.medium"
+  redis_node_type       = "cache.t3.medium"
   redis_num_cache_nodes = 1
 
-  redis_engine_version = "7.0"
+  redis_engine_version             = "7.0"
   redis_auto_minor_version_upgrade = true
-  redis_apply_immediately = true
+  redis_apply_immediately          = true
 
   redis_snapshot_retention_limit = 5
 }

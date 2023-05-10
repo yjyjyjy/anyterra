@@ -16,9 +16,9 @@ variable "worker_memory_reservation"        { type = string }
 variable "worker_gpu_requirement_count"     { type = string }
 
 # efs configuration
-variable "efs_filesystem_id"                { type = string }
-variable "efs_root_directory"               { type = string }
-variable "efs_container_mount_point"        { type = string }
+# variable "efs_filesystem_id"                { type = string }
+# variable "efs_root_directory"               { type = string }
+# variable "efs_container_mount_point"        { type = string }
 
 # ecs task limits
 variable "ecs_task_cpu_hard_limit"          { type = string }

@@ -8,7 +8,7 @@ locals {
   worker_name     = "worker"
   worker_hostname = "worker"
 
-  efs_mount_volume_name = "efs_mount"
+  # efs_mount_volume_name = "efs_mount"
 }
 
 # module configuration
@@ -38,8 +38,8 @@ data "template_file" "container_definitions" {
     worker_gpu_requirement_count = var.worker_gpu_requirement_count
     worker_hostname              = local.worker_hostname
 
-    efs_source_volume_name      = local.efs_mount_volume_name
-    worker_container_mount_path = var.efs_container_mount_point
+    # efs_source_volume_name      = local.efs_mount_volume_name
+    # worker_container_mount_path = var.efs_container_mount_point
   }
 }
 
@@ -57,11 +57,11 @@ resource "aws_ecs_task_definition" "default" {
   requires_compatibilities = ["EC2"]
   skip_destroy             = local.retain_old_task_definitation_revisions
 
-  volume {
-    name = local.efs_mount_volume_name
-    efs_volume_configuration {
-      file_system_id = var.efs_filesystem_id
-      root_directory = var.efs_root_directory
-    }
-  }
+  # volume {
+  #   name = local.efs_mount_volume_name
+  #   efs_volume_configuration {
+  #     file_system_id = var.efs_filesystem_id
+  #     root_directory = var.efs_root_directory
+  #   }
+  # }
 }

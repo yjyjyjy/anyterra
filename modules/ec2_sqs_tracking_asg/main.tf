@@ -36,6 +36,14 @@ resource "aws_security_group" "default" {
     cidr_blocks = var.ssh_ingress_ipv4_ips
   }
 
+  ingress {
+    description = "allow_ingress"
+    from_port   = 7860
+    to_port     = 7860
+    protocol    = "tcp"
+    cidr_blocks = var.ssh_ingress_ipv4_ips
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -97,7 +105,7 @@ resource "aws_autoscaling_policy" "default" {
         id          = "target"
         label       = "message_per_worker"
         return_data = true
-        expression  = "(mFree + mPremium) / nWorkers"
+        expression  = "(mFree/3 + mPremium) / nWorkers"
       }
 
       metrics {

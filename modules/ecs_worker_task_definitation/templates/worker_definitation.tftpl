@@ -23,14 +23,6 @@
 
         "hostname" : "${worker_hostname}",
 
-        "mountPoints" : [
-            {
-                "sourceVolume": "${efs_source_volume_name}",
-                "containerPath": "${worker_container_mount_path}",
-                "readOnly": true
-            }
-        ],
-
         "resourceRequirements" : [
             {
                 "type" : "GPU",
