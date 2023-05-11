@@ -77,7 +77,7 @@ locals {
   task_manager_cmd                = "" # NOTICE: FILL
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL
-  task_manager_memory_reservation = "" # NOTICE: FILL
+  task_manager_memory_reservation = "1024" # NOTICE: FILL
 
   # worker configuration
   worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker:v1" # NOTICE: FILL
