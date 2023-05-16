@@ -27,7 +27,7 @@ module "ecs_cluster_asg" {
   resource_prefix = local.resource_prefix
 
   min_size = local.asg_min_size
-  max_size = local.asg_min_size
+  max_size = local.asg_max_size
 
   instance_type          = local.asg_instance_type
   image_id               = local.asg_image_id

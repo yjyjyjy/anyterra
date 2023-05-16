@@ -5,7 +5,7 @@
 - Find AMI ID using the following aws cli commands
 
 ```bash
-aws ssm get-parameters-by-path --path /aws/service/ecs/optimized-ami/amazon-linux-2/gpu/ --query 'Parameters[].Value' --output text | jq -r '. | "\(.image_name) \(.image_id)" ' | sort
+aws ssm get-parameters-by-path --path /aws/service/ecs/optimized-ami/amazon-linux-2/gpu/ --region us-east-1 --query 'Parameters[].Value' --output text | jq -r '. | "\(.image_name) \(.image_id)" ' | sort
 ```
 - DISCLAIMER: the above command works on linux and needs `jq` installed. If you are not using linux, you can remove the sort part of the command and install jq to run the command.
-- After the above command find the latest image. 
+- After the above command find the latest image.

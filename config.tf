@@ -1,8 +1,8 @@
 locals {
-  resource_prefix               = "real"
-  sqs_queue_prefix              = "real_queue"
-  free_queues_resource_prefix   = "real_queue_free"
-  premium_queue_resource_prefix = "real_queue_premium"
+  resource_prefix               = "waifu"
+  sqs_queue_prefix              = "waifu_queue"
+  free_queues_resource_prefix   = "waifu_queue_free"
+  premium_queue_resource_prefix = "waifu_queue_premium"
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -27,7 +27,7 @@ locals {
 # asg configuration
 locals {
   asg_min_size = 1
-  asg_max_size = 2
+  asg_max_size = 3
 
   asg_instance_type   = "g4dn.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
@@ -41,7 +41,7 @@ locals {
 
 # free queue configuration
 locals {
-  free_queue_visibility_timeout_seconds = 30
+  free_queue_visibility_timeout_seconds = 90
   free_queue_message_retention_seconds  = 86400 # 1 Day = 86,400 Seconds
   free_queue_receive_wait_time_seconds  = 0
   free_queue_max_nessage_size           = 262144
@@ -56,7 +56,7 @@ locals {
 
 # premium queue configuration
 locals {
-  premium_queue_visibility_timeout_seconds = 30
+  premium_queue_visibility_timeout_seconds = 90
   premium_queue_message_retention_seconds  = 86400 # 1 Day = 86,400 Seconds
   premium_queue_receive_wait_time_seconds  = 0
   premium_queue_max_nessage_size           = 262144
