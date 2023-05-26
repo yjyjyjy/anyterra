@@ -78,6 +78,8 @@ locals {
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL
   task_manager_memory_reservation = "1024" # NOTICE: FILL
+  task_manager_log_group          = "/ecs/waifu/task-manager"
+  task_manager_log_stream_prefix  = "task-manager"
 
   # worker configuration
   worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker:v1" # NOTICE: FILL
@@ -85,6 +87,8 @@ locals {
   worker_cpu                   = "2048" # NOTICE: FILL
   worker_memory                = "10240" # NOTICE: FILL
   worker_memory_reservation    = "6144" # NOTICE: FILL
+  worker_log_group             = "/ecs/waifu/worker"
+  worker_log_stream_prefix     = "worker"
   worker_gpu_requirement_count = 1
 
   # # efs configuration

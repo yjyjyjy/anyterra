@@ -54,6 +54,8 @@ module "automatic_111_task_definitation" {
   task_manager_cpu                = local.task_manager_cpu
   task_manager_memory             = local.task_manager_memory
   task_manager_memory_reservation = local.task_manager_memory_reservation
+  task_manager_log_group          = local.task_manager_log_group
+  task_manager_log_stream_prefix  = local.task_manager_log_stream_prefix
 
   # worker configuration
   worker_docker_image          = local.worker_docker_image
@@ -61,6 +63,8 @@ module "automatic_111_task_definitation" {
   worker_cpu                   = local.worker_cpu
   worker_memory                = local.worker_memory
   worker_memory_reservation    = local.worker_memory_reservation
+  worker_log_group             = local.worker_log_group
+  worker_log_stream_prefix     = local.worker_log_stream_prefix
   worker_gpu_requirement_count = local.worker_gpu_requirement_count
 
   # # efs configuration

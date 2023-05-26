@@ -10,6 +10,16 @@
 
         "hostname" : "${task_manager_hostname}",
 
+        "logConfiguration":{
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "${task_manager_log_group}",
+                "awslogs-region": "${aws_region}",
+                "awslogs-create-group": "true",
+                "awslogs-stream-prefix": "${task_manager_log_stream_prefix}"
+            }
+        },
+
         "essential" : true
     },
     {
@@ -30,6 +40,16 @@
                 "value" : "${worker_gpu_requirement_count}"
             }
         ],
+
+        "logConfiguration":{
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "${worker_log_group}",
+                "awslogs-region": "${aws_region}",
+                "awslogs-create-group": "true",
+                "awslogs-stream-prefix": "${worker_log_stream_prefix}"
+            }
+        },
 
 
         "essential" : true

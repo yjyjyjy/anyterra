@@ -13,13 +13,13 @@ locals {
 
 # module configuration
 locals {
-  worker_definitations_template_file_path = "${path.module}/templates/worker_definitation.tftpl"
-  retain_old_task_definitation_revisions  = true
+  worker_definitions_template_file_path = "${path.module}/templates/worker_definitation.tftpl"
+  retain_old_task_definition_revisions  = true
 }
 
 # worker definition template
 data "template_file" "container_definitions" {
-  template = file(local.worker_definitations_template_file_path)
+  template = file(local.worker_definitions_template_file_path)
   vars = {
     task_manager_name               = local.task_manager_name
     task_manager_image              = var.task_manager_docker_image
@@ -28,6 +28,8 @@ data "template_file" "container_definitions" {
     task_manager_memory             = var.task_manager_memory
     task_manager_memory_reservation = var.task_manager_memory_reservation
     task_manager_hostname           = local.task_manager_hostname
+    task_manager_log_group          = var.task_manager_log_group
+    task_manager_log_stream_prefix  = var.task_manager_log_stream_prefix
 
     worker_name                  = local.worker_name
     worker_image                 = var.worker_docker_image
@@ -36,6 +38,8 @@ data "template_file" "container_definitions" {
     worker_memory                = var.worker_memory
     worker_memory_reservation    = var.worker_memory_reservation
     worker_gpu_requirement_count = var.worker_gpu_requirement_count
+    worker_log_group              = var.worker_log_group
+    worker_log_stream_prefix     = var.worker_log_stream_prefix
     worker_hostname              = local.worker_hostname
 
     # efs_source_volume_name      = local.efs_mount_volume_name
@@ -55,7 +59,7 @@ resource "aws_ecs_task_definition" "default" {
   memory        = var.ecs_task_memory_hard_limit
 
   requires_compatibilities = ["EC2"]
-  skip_destroy             = local.retain_old_task_definitation_revisions
+  skip_destroy             = local.retain_old_task_definition_revisions
 
   # volume {
   #   name = local.efs_mount_volume_name

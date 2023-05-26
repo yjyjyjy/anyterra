@@ -6,6 +6,8 @@ variable "task_manager_cmd"                 { type = string }
 variable "task_manager_cpu"                 { type = string }
 variable "task_manager_memory"              { type = string }
 variable "task_manager_memory_reservation"  { type = string }
+variable "task_manager_log_group"           { type = string }
+variable "task_manager_log_stream_prefix"   { type = string }
 
 # worker configuration
 variable "worker_docker_image"              { type = string }
@@ -13,6 +15,8 @@ variable "worker_cmd"                       { type = string }
 variable "worker_cpu"                       { type = string }
 variable "worker_memory"                    { type = string }
 variable "worker_memory_reservation"        { type = string }
+variable "worker_log_group"                 { type = string }
+variable "worker_log_stream_prefix"         { type = string }
 variable "worker_gpu_requirement_count"     { type = string }
 
 # efs configuration
