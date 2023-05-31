@@ -1,0 +1,355 @@
+{
+    "widgets": [
+        {
+            "height": 5,
+            "width": 24,
+            "y": 9,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerInsights", "DesiredTaskCount", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}", { "region": "${AWS_REGION}" } ],
+                    [ ".", "PendingTaskCount", ".", ".", ".", ".", { "region": "${AWS_REGION}" } ],
+                    [ ".", "RunningTaskCount", ".", ".", ".", ".", { "region": "${AWS_REGION}" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "period": 60,
+                "stat": "Average",
+                "region": "${AWS_REGION}",
+                "title": "${PROJECT_NAME} service task counts"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 27,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "period": 60,
+                "stat": "Sum",
+                "metrics": [
+                    [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${PREMIUM_FIFO_DLQ_NAME}" ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Premium Messages recieved"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 27,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "period": 60,
+                "stat": "Sum",
+                "metrics": [
+                    [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${FREE_FIFO_QUEUE_NAME}" ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Free Messages Recieved"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 33,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${PREMIUM_FIFO_QUEUE_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesNotVisible", ".", "." ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Permium Message Counts"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 33,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${FREE_FIFO_QUEUE_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesNotVisible", ".", "." ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Free Message Counts"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 27,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "period": 60,
+                "stat": "Sum",
+                "metrics": [
+                    [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${PREMIUM_FIFO_DLQ_NAME}" ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Premium DQL Messages Recieved"
+            }
+        },
+        {
+            "height": 2,
+            "width": 12,
+            "y": 19,
+            "x": 0,
+            "type": "text",
+            "properties": {
+                "markdown": "## Premium SQS Stats",
+                "background": "solid"
+            }
+        },
+        {
+            "height": 2,
+            "width": 12,
+            "y": 19,
+            "x": 12,
+            "type": "text",
+            "properties": {
+                "markdown": "## Free SQS Stats"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 33,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${PREMIUM_FIFO_DLQ_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesNotVisible", ".", "." ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Premium DLQ Message Counts"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 27,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${FREE_FIFO_DLQ_NAME}" ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Free DLQ Messages Recieved"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 33,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesNotVisible", "QueueName", "${FREE_FIFO_DLQ_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesVisible", ".", "." ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "title": "Free DLQ Message Counts",
+                "stat": "Sum",
+                "period": 60
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 21,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesNotVisible", "QueueName", "${PREMIUM_FIFO_QUEUE_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesVisible", ".", "." ]
+                ],
+                "sparkline": true,
+                "view": "singleValue",
+                "region": "${AWS_REGION}",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Premium Queue Messages"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 21,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesNotVisible", "QueueName", "${PREMIUM_FIFO_DLQ_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesVisible", ".", "." ]
+                ],
+                "sparkline": true,
+                "view": "singleValue",
+                "region": "${AWS_REGION}",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Premium DLQ Queue Messages"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 21,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${FREE_FIFO_QUEUE_NAME}", { "region": "${AWS_REGION}" } ],
+                    [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "region": "${AWS_REGION}" } ]
+                ],
+                "sparkline": true,
+                "view": "singleValue",
+                "region": "${AWS_REGION}",
+                "period": 60,
+                "stat": "Sum",
+                "title": "Free Queue Count"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 21,
+            "x": 18,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesNotVisible", "QueueName", "${FREE_FIFO_DLQ_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesVisible", ".", "." ]
+                ],
+                "sparkline": true,
+                "view": "singleValue",
+                "region": "${AWS_REGION}",
+                "stat": "Sum",
+                "period": 60,
+                "title": "Free DLQ Queue Messages"
+            }
+        },
+        {
+            "height": 3,
+            "width": 24,
+            "y": 6,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerInsights", "DesiredTaskCount", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}", { "region": "${AWS_REGION}" } ],
+                    [ ".", "PendingTaskCount", ".", ".", ".", ".", { "region": "${AWS_REGION}" } ],
+                    [ ".", "RunningTaskCount", ".", ".", ".", ".", { "region": "${AWS_REGION}" } ]
+                ],
+                "sparkline": true,
+                "view": "singleValue",
+                "region": "${AWS_REGION}",
+                "stat": "Average",
+                "period": 60
+            }
+        },
+        {
+            "height": 5,
+            "width": 12,
+            "y": 14,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerInsights", "CpuUtilized", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}" ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Average",
+                "period": 60,
+                "title": "Worker Service CPU Util"
+            }
+        },
+        {
+            "height": 5,
+            "width": 12,
+            "y": 14,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerInsights", "MemoryUtilized", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}" ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Average",
+                "period": 60,
+                "title": "Worker Service Memory Util"
+            }
+        },
+        {
+            "height": 2,
+            "width": 24,
+            "y": 0,
+            "x": 0,
+            "type": "text",
+            "properties": {
+                "markdown": "## ECS Service Stats"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 2,
+            "width": 24,
+            "height": 4,
+            "properties": {
+                "metrics": [
+                    [ { "expression": "(mFree/3 + mPremium) / nWorkers", "label": "message_per_worker", "id": "e1", "period": 60, "stat": "Average", "region": "${AWS_REGION}" } ],
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${FREE_FIFO_QUEUE_NAME}", { "label": "free_users_visible_messages", "id": "mFree", "region": "${AWS_REGION}", "yAxis": "right", "visible": false } ],
+                    [ "...", "${PREMIUM_FIFO_QUEUE_NAME}", { "label": "premium_users_visible_messages", "id": "mPremium", "region": "${AWS_REGION}", "yAxis": "right", "visible": false } ],
+                    [ "ECS/ContainerInsights", "RunningTaskCount", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}", { "label": "number_of_workers", "id": "nWorkers", "region": "${AWS_REGION}", "yAxis": "right", "visible": false } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Average",
+                "period": 60,
+                "title": "ASG Target Tracking"
+            }
+        }
+    ]
+}
