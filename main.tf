@@ -40,12 +40,13 @@ module "ecs_cluster_asg" {
   target_capacity = local.asg_target_capacity
 
   ecs_cluster_name             = module.ecs_cluster.ecs_cluster_name
+  ecs_service_name             = module.ecs_worker_service.worker_service_name # TODO: can induce a cyclic dependence.
   free_users_sqs_queue_name    = module.sqs_queue_free.sqs_queue_name
   premium_users_sqs_queue_name = module.sqs_queue_premium.sqs_queue_name
 }
 
-module "automatic_111_task_definitation" {
-  source = "./modules/ecs_worker_task_definitation"
+module "automatic_111_task_definition" {
+  source = "modules/ecs_worker_task_definition"
 
   resource_prefix = local.resource_prefix
 
@@ -81,7 +82,7 @@ module "ecs_worker_service" {
 
   resource_prefix               = local.resource_prefix
   ecs_cluster_arn               = module.ecs_cluster.ecs_cluster_arn
-  service_task_definitation_arn = module.automatic_111_task_definitation.task_definition_revision_arn
+  service_task_definition_arn = module.automatic_111_task_definition.task_definition_revision_arn
 }
 
 module "sqs_queue_free" {
@@ -91,13 +92,13 @@ module "sqs_queue_free" {
   queue_visibility_timeout_seconds = local.free_queue_visibility_timeout_seconds
   queue_message_retention_seconds  = local.free_queue_message_retention_seconds
   queue_receive_wait_time_seconds  = local.free_queue_receive_wait_time_seconds
-  queue_max_nessage_size           = local.free_queue_max_nessage_size
+  queue_max_message_size           = local.free_queue_max_message_size
   queue_delay_seconds              = local.free_queue_delay_seconds
 
   dlq_visibility_timeout_seconds = local.free_queue_dlq_visibility_timeout_seconds
   dlq_message_retention_seconds  = local.free_queue_dlq_message_retention_seconds
   dlq_receive_wait_time_seconds  = local.free_queue_dlq_receive_wait_time_seconds
-  dlq_max_nessage_size           = local.free_queue_dlq_max_nessage_size
+  dlq_max_message_size           = local.free_queue_dlq_max_message_size
   dlq_delay_seconds              = local.free_queue_dlq_delay_seconds
 }
 
@@ -108,13 +109,13 @@ module "sqs_queue_premium" {
   queue_visibility_timeout_seconds = local.premium_queue_visibility_timeout_seconds
   queue_message_retention_seconds  = local.premium_queue_message_retention_seconds
   queue_receive_wait_time_seconds  = local.premium_queue_receive_wait_time_seconds
-  queue_max_nessage_size           = local.premium_queue_max_nessage_size
+  queue_max_message_size           = local.premium_queue_max_message_size
   queue_delay_seconds              = local.premium_queue_delay_seconds
 
   dlq_visibility_timeout_seconds = local.premium_queue_dlq_visibility_timeout_seconds
   dlq_message_retention_seconds  = local.premium_queue_dlq_message_retention_seconds
   dlq_receive_wait_time_seconds  = local.premium_queue_dlq_receive_wait_time_seconds
-  dlq_max_nessage_size           = local.premium_queue_dlq_max_nessage_size
+  dlq_max_message_size           = local.premium_queue_dlq_max_message_size
   dlq_delay_seconds              = local.premium_queue_dlq_delay_seconds
 }
 
