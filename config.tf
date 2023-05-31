@@ -44,13 +44,13 @@ locals {
   free_queue_visibility_timeout_seconds = 90
   free_queue_message_retention_seconds  = 86400 # 1 Day = 86,400 Seconds
   free_queue_receive_wait_time_seconds  = 0
-  free_queue_max_nessage_size           = 262144
+  free_queue_max_message_size           = 262144
   free_queue_delay_seconds              = 0
 
   free_queue_dlq_visibility_timeout_seconds = 30
   free_queue_dlq_message_retention_seconds  = 345600 # 4 Days = 345600 Seconds
   free_queue_dlq_receive_wait_time_seconds  = 0
-  free_queue_dlq_max_nessage_size           = 262144
+  free_queue_dlq_max_message_size           = 262144
   free_queue_dlq_delay_seconds              = 0
 }
 
@@ -59,18 +59,18 @@ locals {
   premium_queue_visibility_timeout_seconds = 90
   premium_queue_message_retention_seconds  = 86400 # 1 Day = 86,400 Seconds
   premium_queue_receive_wait_time_seconds  = 0
-  premium_queue_max_nessage_size           = 262144
+  premium_queue_max_message_size           = 262144
   premium_queue_delay_seconds              = 0
 
   premium_queue_dlq_visibility_timeout_seconds = 30
   premium_queue_dlq_message_retention_seconds  = 345600 # 4 Days = 345600 Seconds
   premium_queue_dlq_receive_wait_time_seconds  = 0
-  premium_queue_dlq_max_nessage_size           = 262144
+  premium_queue_dlq_max_message_size           = 262144
   premium_queue_dlq_delay_seconds              = 0
 
 }
 
-# workers task definitation configuration
+# workers task definition configuration
 locals {
   # task manager configuration
   task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real:v1_1" # NOTICE: FILL

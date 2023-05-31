@@ -13,13 +13,13 @@ locals {
 
 # module configuration
 locals {
-  worker_definitations_template_file_path = "${path.module}/templates/worker_definitation.tftpl"
-  retain_old_task_definitation_revisions  = true
+  worker_definitions_template_file_path = "${path.module}/templates/worker_definitation.tftpl"
+  retain_old_task_definition_revisions  = true
 }
 
 # worker definition template
 data "template_file" "container_definitions" {
-  template = file(local.worker_definitations_template_file_path)
+  template = file(local.worker_definitions_template_file_path)
   vars = {
     task_manager_name               = local.task_manager_name
     task_manager_image              = var.task_manager_docker_image
@@ -55,7 +55,7 @@ resource "aws_ecs_task_definition" "default" {
   memory        = var.ecs_task_memory_hard_limit
 
   requires_compatibilities = ["EC2"]
-  skip_destroy             = local.retain_old_task_definitation_revisions
+  skip_destroy             = local.retain_old_task_definition_revisions
 
   # volume {
   #   name = local.efs_mount_volume_name
