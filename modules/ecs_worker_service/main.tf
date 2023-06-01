@@ -20,3 +20,6 @@ resource "aws_ecs_service" "default" {
 output "woker_service_arn" {
   value = aws_ecs_service.default.id
 }
+output "worker_service_name" {
+  value = aws_ecs_service.default.name
+}

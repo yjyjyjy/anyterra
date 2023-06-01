@@ -101,6 +101,11 @@ locals {
   ecs_task_memory_hard_limit = "" # NOTICE: FILL
 }
 
+# dashboard configuration
+locals {
+  cloudwatch_dashboard_prefix = "${local.resource_prefix}_service"
+}
+
 # redis configuration
 locals {
   redis_node_type       = "cache.t3.medium"

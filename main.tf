@@ -122,6 +122,20 @@ module "sqs_queue_premium" {
   dlq_delay_seconds              = local.premium_queue_dlq_delay_seconds
 }
 
+module "cloudwatch_dashboard" {
+  source = "./modules/cloudwatch_dashboard"
+
+  resource_prefix         = local.cloudwatch_dashboard_prefix
+
+  worker_ecs_cluster_name      = module.ecs_cluster.ecs_cluster_name
+  worker_ecs_service_name      = module.ecs_worker_service.worker_service_name
+
+  premium_fifo_queue_name = module.sqs_queue_premium.sqs_queue_name
+  premium_fifo_dlq_name   = module.sqs_queue_premium.dlq_queue_name
+  free_fifo_queue_name    = module.sqs_queue_free.sqs_queue_name
+  free_fifo_dlq_name      = module.sqs_queue_free.dlq_queue_name
+}
+
 # module "redis_cluster" {
 #   source = "./modules/redis_cluster"
 
