@@ -111,7 +111,7 @@ resource "aws_autoscaling_policy" "default" {
         id          = "target"
         label       = "message_per_worker"
         return_data = true
-        expression  = "(mFree/3 + mPremium) / nWorkers"
+        expression  = "(mFree + mPremium*3) / nWorkers / 40"
       }
 
       metrics {
