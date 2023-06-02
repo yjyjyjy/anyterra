@@ -10,7 +10,7 @@ resource "aws_sqs_queue" "sqs_queue" {
   visibility_timeout_seconds = var.queue_visibility_timeout_seconds
   message_retention_seconds  = var.queue_message_retention_seconds
   receive_wait_time_seconds  = var.queue_receive_wait_time_seconds
-  max_message_size           = var.queue_max_nessage_size
+  max_message_size           = var.queue_max_message_size
   delay_seconds              = var.queue_delay_seconds
 }
 
@@ -21,7 +21,7 @@ resource "aws_sqs_queue" "dlq_queue" {
   visibility_timeout_seconds = var.dlq_visibility_timeout_seconds
   message_retention_seconds  = var.dlq_message_retention_seconds
   receive_wait_time_seconds  = var.dlq_receive_wait_time_seconds
-  max_message_size           = var.dlq_max_nessage_size
+  max_message_size           = var.dlq_max_message_size
   delay_seconds              = var.dlq_delay_seconds
 
   redrive_allow_policy = jsonencode({

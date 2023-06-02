@@ -161,6 +161,10 @@ resource "aws_autoscaling_policy" "default" {
               name  = "ClusterName"
               value = var.ecs_cluster_name
             }
+            dimensions {
+              name = "ServiceName"
+              value = var.ecs_service_name
+            }
           }
         }
       }
