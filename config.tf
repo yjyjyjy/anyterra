@@ -1,15 +1,6 @@
 locals {
-<<<<<<< HEAD
-  resource_prefix               = "real"
-  sqs_queue_prefix              = "real_queue"
-  free_queues_resource_prefix   = "real_queue_free"
-  premium_queue_resource_prefix = "real_queue_premium"
-=======
   resource_prefix               = "real_free"
   sqs_queue_prefix              = "real_free_queue"
-  # free_queues_resource_prefix   = "real_free_queue_free"
-  # premium_queue_resource_prefix = "real_free_queue_premium"
->>>>>>> 093fad9 (auto scaling, single queue)
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -33,28 +24,17 @@ locals {
 
 # asg configuration
 locals {
-<<<<<<< HEAD
-  asg_min_size = 1
-  asg_max_size = 3
-  asg_target_capacity = 1 # NOTICE: Calibrate
-  asg_instance_type   = "g5.xlarge"
-=======
   asg_min_size = 2
   asg_max_size = 10
 
   asg_instance_type   = "g4dn.xlarge"
->>>>>>> 093fad9 (auto scaling, single queue)
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
   asg_access_key_name = "aws"                      # NOTICE: FILL
 
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]                       # NOTICE: FILL
-<<<<<<< HEAD
-
-=======
   asg_target_capacity = 3 # NOTICE: Calibrate
->>>>>>> 093fad9 (auto scaling, single queue)
 }
 
 # free queue configuration
