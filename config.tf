@@ -1,8 +1,8 @@
 locals {
-  resource_prefix               = "waifu"
-  sqs_queue_prefix              = "waifu_queue"
-  free_queues_resource_prefix   = "waifu_queue_free"
-  premium_queue_resource_prefix = "waifu_queue_premium"
+  resource_prefix               = "real"
+  sqs_queue_prefix              = "real_queue"
+  free_queues_resource_prefix   = "real_queue_free"
+  premium_queue_resource_prefix = "real_queue_premium"
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -28,15 +28,15 @@ locals {
 locals {
   asg_min_size = 1
   asg_max_size = 3
-
-  asg_instance_type   = "g4dn.xlarge"
+  asg_target_capacity = 1 # NOTICE: Calibrate
+  asg_instance_type   = "g5.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
   asg_access_key_name = "aws"                      # NOTICE: FILL
 
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]                       # NOTICE: FILL
-  asg_target_capacity = 1 # NOTICE: Calibrate
+
 }
 
 # free queue configuration
@@ -73,14 +73,14 @@ locals {
 # workers task definitation configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager:v1" # NOTICE: FILL
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real:v1_1" # NOTICE: FILL
   task_manager_cmd                = "" # NOTICE: FILL
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL
   task_manager_memory_reservation = "1024" # NOTICE: FILL
 
   # worker configuration
-  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker:v1" # NOTICE: FILL
+  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-real:v1" # NOTICE: FILL
   worker_cmd                   = "" # NOTICE: FILL
   worker_cpu                   = "2048" # NOTICE: FILL
   worker_memory                = "10240" # NOTICE: FILL

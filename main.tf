@@ -30,6 +30,7 @@ module "ecs_cluster_asg" {
   max_size = local.asg_max_size
 
   instance_type          = local.asg_instance_type
+
   image_id               = local.asg_image_id
   instance_iam_role_name = module.ecs_agent_iam.iam_role_name
   access_key_name        = local.access_key_name #"aws" # TODO: Fix

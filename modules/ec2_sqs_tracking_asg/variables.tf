@@ -3,7 +3,6 @@ variable "resource_prefix"              { type = string }
 variable "min_size"                     { type = string }
 variable "max_size"                     { type = string }
 variable "target_capacity"              { type = string }
-
 variable "instance_type"                { type = string }
 variable "image_id"                     { type = string }
 variable "access_key_name"              { type = string }
