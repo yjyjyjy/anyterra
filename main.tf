@@ -41,12 +41,12 @@ module "ecs_cluster_asg" {
 
   ecs_cluster_name             = module.ecs_cluster.ecs_cluster_name
   ecs_service_name             = module.ecs_worker_service.worker_service_name # TODO: can induce a cyclic dependence.
-  free_users_sqs_queue_name    = module.sqs_queue_free.sqs_queue_name
-  premium_users_sqs_queue_name = module.sqs_queue_premium.sqs_queue_name
+  sqs_queue_name    = module.sqs_queue.sqs_queue_name
+  # premium_users_sqs_queue_name = module.sqs_queue_premium.sqs_queue_name
 }
 
 module "automatic_111_task_definition" {
-  source = "modules/ecs_worker_task_definition"
+  source = "./modules/ecs_worker_task_definition"
 
   resource_prefix = local.resource_prefix
 
@@ -85,10 +85,11 @@ module "ecs_worker_service" {
   service_task_definition_arn = module.automatic_111_task_definition.task_definition_revision_arn
 }
 
-module "sqs_queue_free" {
+module "sqs_queue" {
   source = "./modules/sqs"
 
-  resource_prefix                  = local.free_queues_resource_prefix
+  resource_prefix                  = local.sqs_queue_prefix
+  # resource_prefix                  = local.free_queues_resource_prefix
   queue_visibility_timeout_seconds = local.free_queue_visibility_timeout_seconds
   queue_message_retention_seconds  = local.free_queue_message_retention_seconds
   queue_receive_wait_time_seconds  = local.free_queue_receive_wait_time_seconds
@@ -102,22 +103,22 @@ module "sqs_queue_free" {
   dlq_delay_seconds              = local.free_queue_dlq_delay_seconds
 }
 
-module "sqs_queue_premium" {
-  source = "./modules/sqs"
+# module "sqs_queue_premium" {
+#   source = "./modules/sqs"
 
-  resource_prefix                  = local.premium_queue_resource_prefix
-  queue_visibility_timeout_seconds = local.premium_queue_visibility_timeout_seconds
-  queue_message_retention_seconds  = local.premium_queue_message_retention_seconds
-  queue_receive_wait_time_seconds  = local.premium_queue_receive_wait_time_seconds
-  queue_max_message_size           = local.premium_queue_max_message_size
-  queue_delay_seconds              = local.premium_queue_delay_seconds
+#   resource_prefix                  = local.premium_queue_resource_prefix
+#   queue_visibility_timeout_seconds = local.premium_queue_visibility_timeout_seconds
+#   queue_message_retention_seconds  = local.premium_queue_message_retention_seconds
+#   queue_receive_wait_time_seconds  = local.premium_queue_receive_wait_time_seconds
+#   queue_max_message_size           = local.premium_queue_max_message_size
+#   queue_delay_seconds              = local.premium_queue_delay_seconds
 
-  dlq_visibility_timeout_seconds = local.premium_queue_dlq_visibility_timeout_seconds
-  dlq_message_retention_seconds  = local.premium_queue_dlq_message_retention_seconds
-  dlq_receive_wait_time_seconds  = local.premium_queue_dlq_receive_wait_time_seconds
-  dlq_max_message_size           = local.premium_queue_dlq_max_message_size
-  dlq_delay_seconds              = local.premium_queue_dlq_delay_seconds
-}
+#   dlq_visibility_timeout_seconds = local.premium_queue_dlq_visibility_timeout_seconds
+#   dlq_message_retention_seconds  = local.premium_queue_dlq_message_retention_seconds
+#   dlq_receive_wait_time_seconds  = local.premium_queue_dlq_receive_wait_time_seconds
+#   dlq_max_message_size           = local.premium_queue_dlq_max_message_size
+#   dlq_delay_seconds              = local.premium_queue_dlq_delay_seconds
+# }
 
 # module "redis_cluster" {
 #   source = "./modules/redis_cluster"
