@@ -1,8 +1,15 @@
 locals {
+<<<<<<< HEAD
   resource_prefix               = "real"
   sqs_queue_prefix              = "real_queue"
   free_queues_resource_prefix   = "real_queue_free"
   premium_queue_resource_prefix = "real_queue_premium"
+=======
+  resource_prefix               = "real_free"
+  sqs_queue_prefix              = "real_free_queue"
+  # free_queues_resource_prefix   = "real_free_queue_free"
+  # premium_queue_resource_prefix = "real_free_queue_premium"
+>>>>>>> 093fad9 (auto scaling, single queue)
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -26,17 +33,28 @@ locals {
 
 # asg configuration
 locals {
+<<<<<<< HEAD
   asg_min_size = 1
   asg_max_size = 3
   asg_target_capacity = 1 # NOTICE: Calibrate
   asg_instance_type   = "g5.xlarge"
+=======
+  asg_min_size = 2
+  asg_max_size = 10
+
+  asg_instance_type   = "g4dn.xlarge"
+>>>>>>> 093fad9 (auto scaling, single queue)
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
   asg_access_key_name = "aws"                      # NOTICE: FILL
 
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]                       # NOTICE: FILL
+<<<<<<< HEAD
 
+=======
+  asg_target_capacity = 3 # NOTICE: Calibrate
+>>>>>>> 093fad9 (auto scaling, single queue)
 }
 
 # free queue configuration
@@ -55,25 +73,25 @@ locals {
 }
 
 # premium queue configuration
-locals {
-  premium_queue_visibility_timeout_seconds = 90
-  premium_queue_message_retention_seconds  = 86400 # 1 Day = 86,400 Seconds
-  premium_queue_receive_wait_time_seconds  = 0
-  premium_queue_max_message_size           = 262144
-  premium_queue_delay_seconds              = 0
+# locals {
+#   premium_queue_visibility_timeout_seconds = 90
+#   premium_queue_message_retention_seconds  = 86400 # 1 Day = 86,400 Seconds
+#   premium_queue_receive_wait_time_seconds  = 0
+#   premium_queue_max_message_size           = 262144
+#   premium_queue_delay_seconds              = 0
 
-  premium_queue_dlq_visibility_timeout_seconds = 30
-  premium_queue_dlq_message_retention_seconds  = 345600 # 4 Days = 345600 Seconds
-  premium_queue_dlq_receive_wait_time_seconds  = 0
-  premium_queue_dlq_max_message_size           = 262144
-  premium_queue_dlq_delay_seconds              = 0
+#   premium_queue_dlq_visibility_timeout_seconds = 30
+#   premium_queue_dlq_message_retention_seconds  = 345600 # 4 Days = 345600 Seconds
+#   premium_queue_dlq_receive_wait_time_seconds  = 0
+#   premium_queue_dlq_max_message_size           = 262144
+#   premium_queue_dlq_delay_seconds              = 0
 
-}
+# }
 
 # workers task definition configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real:v1_1" # NOTICE: FILL
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real-free:v1" # NOTICE: FILL
   task_manager_cmd                = "" # NOTICE: FILL
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL

@@ -14,5 +14,6 @@ variable "ssh_ingress_ipv4_ips"         { type = list }
 
 variable "ecs_cluster_name"             { type = string }
 variable "ecs_service_name"             { type = string }
-variable "free_users_sqs_queue_name"    { type = string }
-variable "premium_users_sqs_queue_name" { type = string }
+variable "sqs_queue_name"               { type = string }
+# variable "free_users_sqs_queue_name"    { type = string }
+# variable "premium_users_sqs_queue_name" { type = string }

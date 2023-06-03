@@ -111,7 +111,7 @@ resource "aws_autoscaling_policy" "default" {
         id          = "target"
         label       = "message_per_worker"
         return_data = true
-        expression  = "(mFree + mPremium*3) / nWorkers / 40"
+        expression  = "mFree/nWorkers"
       }
 
       metrics {
@@ -125,28 +125,28 @@ resource "aws_autoscaling_policy" "default" {
             metric_name = "ApproximateNumberOfMessagesVisible"
             dimensions {
               name  = "QueueName"
-              value = var.free_users_sqs_queue_name
+              value = var.sqs_queue_name
             }
           }
         }
       }
 
-      metrics {
-        id          = "mPremium"
-        label       = "premium_users_visible_messages"
-        return_data = false
-        metric_stat {
-          stat = "Average"
-          metric {
-            namespace   = "AWS/SQS"
-            metric_name = "ApproximateNumberOfMessagesVisible"
-            dimensions {
-              name  = "QueueName"
-              value = var.premium_users_sqs_queue_name
-            }
-          }
-        }
-      }
+      # metrics {
+      #   id          = "mPremium"
+      #   label       = "premium_users_visible_messages"
+      #   return_data = false
+      #   metric_stat {
+      #     stat = "Average"
+      #     metric {
+      #       namespace   = "AWS/SQS"
+      #       metric_name = "ApproximateNumberOfMessagesVisible"
+      #       dimensions {
+      #         name  = "QueueName"
+      #         value = var.premium_users_sqs_queue_name
+      #       }
+      #     }
+      #   }
+      # }
 
       metrics {
         id          = "nWorkers"

@@ -1,11 +1,11 @@
 locals {
-  sqs_queue_name     = "${var.resource_prefix}.fifo"
-  sqs_dlq_queue_name = "${var.resource_prefix}-dlq.fifo"
+  sqs_queue_name     = "${var.resource_prefix}" # "${var.resource_prefix}.fifo"
+  sqs_dlq_queue_name = "${var.resource_prefix}-dlq" # "${var.resource_prefix}-dlq.fifo"
 }
 
 resource "aws_sqs_queue" "sqs_queue" {
   name       = local.sqs_queue_name
-  fifo_queue = true
+  fifo_queue = false
 
   visibility_timeout_seconds = var.queue_visibility_timeout_seconds
   message_retention_seconds  = var.queue_message_retention_seconds
@@ -16,7 +16,7 @@ resource "aws_sqs_queue" "sqs_queue" {
 
 resource "aws_sqs_queue" "dlq_queue" {
   name       = local.sqs_dlq_queue_name
-  fifo_queue = true
+  fifo_queue = false
 
   visibility_timeout_seconds = var.dlq_visibility_timeout_seconds
   message_retention_seconds  = var.dlq_message_retention_seconds
