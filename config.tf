@@ -11,6 +11,10 @@ locals {
 }
 
 locals {
+  cloudwatch_dashboard_resource_prefix = "${local.resource_prefix}_service"
+}
+
+locals {
   global_vpc_id = "vpc-0d151afb4b1f19e05" # NOTICE: Fill
   global_subnet_ids = [
     "subnet-0a73374ec206acaa3",

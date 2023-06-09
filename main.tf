@@ -104,6 +104,18 @@ module "sqs_queue" {
   dlq_delay_seconds              = local.free_queue_dlq_delay_seconds
 }
 
+module "cloudwatch_dashboard" {
+  source = "./modules/cloudwatch_dashboard"
+
+  resource_prefix = local.cloudwatch_dashboard_resource_prefix
+
+  worker_ecs_cluster_name = module.ecs_cluster.ecs_cluster_name
+  worker_ecs_service_name = module.ecs_worker_service.worker_service_name
+
+  sqs_queue_name = module.sqs_queue.sqs_queue_name
+  dlq_queue_name = module.sqs_queue.dlq_queue_name
+}
+
 # module "sqs_queue_premium" {
 #   source = "./modules/sqs"
 
