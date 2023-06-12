@@ -66,6 +66,13 @@ resource "aws_launch_template" "default" {
     #   max_price = var.max_price
     # }
   }
+  block_device_mappings {
+    device_name = "/dev/sda1"
+
+    ebs {
+      volume_size = 80
+    }
+  }
 
   iam_instance_profile {
     name = aws_iam_instance_profile.asg_instance_profile.name
