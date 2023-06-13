@@ -1,6 +1,6 @@
 locals {
-  resource_prefix               = "real_free"
-  sqs_queue_prefix              = "real_free_queue"
+  resource_prefix               = "real_paid"
+  sqs_queue_prefix              = "real_paid_queue"
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -24,17 +24,17 @@ locals {
 
 # asg configuration
 locals {
-  asg_min_size = 2
-  asg_max_size = 10
+  asg_min_size = 1
+  asg_max_size = 3
 
-  asg_instance_type   = "g4dn.xlarge"
+  asg_instance_type   = "g5.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
   asg_access_key_name = "aws"                      # NOTICE: FILL
 
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]                       # NOTICE: FILL
-  asg_target_capacity = 3 # NOTICE: Calibrate
+  asg_target_capacity = 2 # NOTICE: Calibrate
 }
 
 # free queue configuration
@@ -71,7 +71,7 @@ locals {
 # workers task definition configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real-free:v1" # NOTICE: FILL
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real-paid:v1" # NOTICE: FILL
   task_manager_cmd                = "" # NOTICE: FILL
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL
