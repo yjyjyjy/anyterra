@@ -1,6 +1,6 @@
 locals {
-  resource_prefix               = "dev_free"
-  sqs_queue_prefix              = "dev_free_queue"
+  resource_prefix               = "real_free"
+  sqs_queue_prefix              = "${local.resource_prefix}_queue"
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -71,7 +71,7 @@ locals {
 # workers task definition configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-dev-free:v1" # NOTICE: FILL
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-${replace(local.resource_prefix,"_","-")}:v1" # NOTICE: FILL
   task_manager_cmd                = "" # NOTICE: FILL
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL
