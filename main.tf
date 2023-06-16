@@ -29,7 +29,9 @@ module "ecs_cluster_asg" {
   min_size = local.asg_min_size
   max_size = local.asg_max_size
 
-  instance_type          = local.asg_instance_type
+  instance_types_priority_order = local.asg_instance_types_order
+  on_demand_base_number = local.asg_base_on_demand_instances
+  on_demand_percentage = local.asg_on_demand_percentage
 
   image_id               = local.asg_image_id
   instance_iam_role_name = module.ecs_agent_iam.iam_role_name
@@ -104,22 +106,17 @@ module "sqs_queue" {
   dlq_delay_seconds              = local.free_queue_dlq_delay_seconds
 }
 
-# module "sqs_queue_premium" {
-#   source = "./modules/sqs"
+module "cloudwatch_dashboard" {
+  source = "./modules/cloudwatch_dashboard"
 
-#   resource_prefix                  = local.premium_queue_resource_prefix
-#   queue_visibility_timeout_seconds = local.premium_queue_visibility_timeout_seconds
-#   queue_message_retention_seconds  = local.premium_queue_message_retention_seconds
-#   queue_receive_wait_time_seconds  = local.premium_queue_receive_wait_time_seconds
-#   queue_max_message_size           = local.premium_queue_max_message_size
-#   queue_delay_seconds              = local.premium_queue_delay_seconds
+  resource_prefix = local.cloudwatch_dashboard_resource_prefix
 
-#   dlq_visibility_timeout_seconds = local.premium_queue_dlq_visibility_timeout_seconds
-#   dlq_message_retention_seconds  = local.premium_queue_dlq_message_retention_seconds
-#   dlq_receive_wait_time_seconds  = local.premium_queue_dlq_receive_wait_time_seconds
-#   dlq_max_message_size           = local.premium_queue_dlq_max_message_size
-#   dlq_delay_seconds              = local.premium_queue_dlq_delay_seconds
-# }
+  worker_ecs_cluster_name = module.ecs_cluster.ecs_cluster_name
+  worker_ecs_service_name = module.ecs_worker_service.worker_service_name
+
+  sqs_queue_name = module.sqs_queue.sqs_queue_name
+  dlq_queue_name = module.sqs_queue.dlq_queue_name
+}
 
 # module "redis_cluster" {
 #   source = "./modules/redis_cluster"

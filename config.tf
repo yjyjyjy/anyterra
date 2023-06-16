@@ -1,6 +1,6 @@
 locals {
   resource_prefix               = "real_free"
-  sqs_queue_prefix              = "${local.resource_prefix}_queue"
+  sqs_queue_prefix              = "real_free_queue"
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -11,7 +11,11 @@ locals {
 }
 
 locals {
-  global_vpc_id = "vpc-0d151afb4b1f19e05" # NOTICE: Fill
+  cloudwatch_dashboard_resource_prefix = "${local.resource_prefix}_service"
+}
+
+locals {
+  global_vpc_id = "vpc-0d151afb4b1f19e05"
   global_subnet_ids = [
     "subnet-0a73374ec206acaa3",
     "subnet-07ab183b928a5144d",
@@ -29,12 +33,20 @@ locals {
 
   asg_instance_type   = "g4dn.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
-  asg_access_key_name = "aws"                      # NOTICE: FILL
+  asg_access_key_name = "aws"
+
+  asg_instance_types_order = [
+    "g5.xlarge",
+    "g4dn.xlarge"
+  ]
+
+  asg_base_on_demand_instances = 1
+  asg_on_demand_percentage = 20
 
   asg_ssh_ips = [
 	  "0.0.0.0/0"
-  ]                       # NOTICE: FILL
-  asg_target_capacity = 3 # NOTICE: Calibrate
+  ]
+  asg_target_capacity = 3
 }
 
 # free queue configuration
@@ -86,13 +98,13 @@ locals {
   worker_gpu_requirement_count = 1
 
   # # efs configuration
-  # efs_filesystem_id         = "" # NOTICE: FILL
+  # efs_filesystem_id         = ""
   # efs_root_directory        = "/"
-  # efs_container_mount_point = "" # NOTICE: FILL
+  # efs_container_mount_point = ""
 
   # ecs task limits
-  ecs_task_cpu_hard_limit    = "" # NOTICE: FILL sum of the two tasks
-  ecs_task_memory_hard_limit = "" # NOTICE: FILL
+  ecs_task_cpu_hard_limit    = "" # sum of the two tasks
+  ecs_task_memory_hard_limit = ""
 }
 
 # redis configuration

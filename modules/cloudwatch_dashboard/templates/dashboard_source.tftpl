@@ -1,0 +1,218 @@
+{
+    "widgets": [
+        {
+            "type": "text",
+            "x": 0,
+            "y": 0,
+            "width": 24,
+            "height": 2,
+            "properties": {
+                "markdown": "# Worker Metrics"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 2,
+            "width": 24,
+            "height": 5,
+            "properties": {
+                "metrics": [
+                    [ { "expression": "nMessages/nWorkers", "label": "Asg Target Tracking Metric", "id": "e1", "region": "${AWS_REGION}" } ],
+                    [ "ECS/ContainerInsights", "RunningTaskCount", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}", { "label": "nWorkers", "id": "nWorkers", "visible": false, "region": "${AWS_REGION}" } ],
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${SQS_QUEUE_NAME}", { "label": "nMessages", "id": "nMessages", "visible": false, "region": "${AWS_REGION}" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS_REGION}",
+                "stat": "Average",
+                "period": 60,
+                "title": "Auto Scaling Group Target Tracking Metric"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 7,
+            "width": 24,
+            "height": 3,
+            "properties": {
+                "metrics": [
+                    [ "ECS/ContainerInsights", "PendingTaskCount", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}" ],
+                    [ ".", "RunningTaskCount", ".", ".", ".", "." ],
+                    [ ".", "DesiredTaskCount", ".", ".", ".", "." ]
+                ],
+                "sparkline": true,
+                "view": "singleValue",
+                "region": "${AWS_REGION}",
+                "stat": "Average",
+                "period": 60,
+                "title": "Worker ECS Service Task Counts"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 10,
+            "width": 12,
+            "height": 5,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "ECS/ContainerInsights", "CpuUtilized", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}" ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Worker Service Average CPU Utilization"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 10,
+            "width": 12,
+            "height": 5,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "ECS/ContainerInsights", "MemoryUtilized", "ServiceName", "${WORKER_ECS_SERVICE_NAME}", "ClusterName", "${WORKER_ECS_CLUSTER_NAME}" ],
+                    [ ".", "MemoryReserved", ".", ".", ".", "." ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Worker Service Average Memory Utilization"
+            }
+        },
+        {
+            "type": "text",
+            "x": 0,
+            "y": 15,
+            "width": 24,
+            "height": 2,
+            "properties": {
+                "markdown": "# Message Queue Metrics"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 18,
+            "width": 12,
+            "height": 3,
+            "properties": {
+                "sparkline": true,
+                "view": "singleValue",
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesNotVisible", "QueueName", "${SQS_QUEUE_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesVisible", ".", "." ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Real Free SQS Queue Message"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 18,
+            "width": 12,
+            "height": 3,
+            "properties": {
+                "sparkline": true,
+                "view": "singleValue",
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesNotVisible", "QueueName", "${DLQ_QUEUE_NAME}" ],
+                    [ ".", "ApproximateNumberOfMessagesVisible", ".", "." ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Real Free SQS DQL Stats"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 21,
+            "width": 12,
+            "height": 4,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${SQS_QUEUE_NAME}" ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Real Free SQS Queue Messages Recieved"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 25,
+            "width": 12,
+            "height": 4,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${SQS_QUEUE_NAME}" ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Real Free SQS Queue Messages Visible",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 21,
+            "width": 12,
+            "height": 4,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${DLQ_QUEUE_NAME}", { "region": "${AWS_REGION}" } ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Real Free SQS DLQ Messages Recieved",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 25,
+            "width": 12,
+            "height": 4,
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${DLQ_QUEUE_NAME}", { "region": "${AWS_REGION}" } ]
+                ],
+                "region": "${AWS_REGION}",
+                "title": "Real Free SQS DLQ Messages Visible",
+                "period": 60
+            }
+        },
+        {
+            "type": "text",
+            "x": 0,
+            "y": 17,
+            "width": 12,
+            "height": 1,
+            "properties": {
+                "markdown": "## Message Queue Metrics"
+            }
+        },
+        {
+            "type": "text",
+            "x": 12,
+            "y": 17,
+            "width": 12,
+            "height": 1,
+            "properties": {
+                "markdown": "## Dead Letter Queue Metrics"
+            }
+        }
+    ]
+}
