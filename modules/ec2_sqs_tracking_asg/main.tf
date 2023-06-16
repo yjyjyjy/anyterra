@@ -63,6 +63,14 @@ resource "aws_launch_template" "default" {
   # instance_market_options {
   #   market_type = "spot"
   # }
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 80
+      delete_on_termination = true
+    }
+  }
   iam_instance_profile {
     name = aws_iam_instance_profile.asg_instance_profile.name
   }

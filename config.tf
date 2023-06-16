@@ -45,7 +45,7 @@ locals {
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]
-  asg_target_capacity = 3
+  asg_target_capacity = 5
 
 }
 
