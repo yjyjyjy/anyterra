@@ -1,7 +1,6 @@
 locals {
   resource_prefix               = "real_free"
-  sqs_queue_prefix              = "real_free_queue"
-  # artifact_bucket_name          = "anydream-gen-storage"
+  sqs_queue_prefix              = "${local.resource_prefix}_queue"
 }
 
 locals {
@@ -29,7 +28,7 @@ locals {
 # asg configuration
 locals {
   asg_min_size = 1
-  asg_max_size = 2
+  asg_max_size = 3
 
   asg_instance_type   = "g4dn.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
@@ -41,12 +40,12 @@ locals {
   ]
 
   asg_base_on_demand_instances = 1
-  asg_on_demand_percentage = 20
+  asg_on_demand_percentage = 10
 
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]
-  asg_target_capacity = 3
+  asg_target_capacity = 5
 }
 
 # free queue configuration
