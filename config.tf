@@ -1,5 +1,5 @@
 locals {
-  resource_prefix               = "real_free"
+  resource_prefix               = "dev_free"
   sqs_queue_prefix              = "${local.resource_prefix}_queue"
 }
 
