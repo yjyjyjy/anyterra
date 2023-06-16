@@ -35,8 +35,8 @@ locals {
   asg_access_key_name = "aws"
 
   asg_instance_types_order = [
-    "g5.xlarge",
-    "g4dn.xlarge"
+    "g4dn.xlarge",
+    "g5.xlarge"
   ]
 
   asg_base_on_demand_instances = 1
