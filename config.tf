@@ -27,25 +27,26 @@ locals {
 
 # asg configuration
 locals {
-  asg_min_size = 2
-  asg_max_size = 10
+  asg_min_size = 1
+  asg_max_size = 3
 
   asg_instance_type   = "g4dn.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
   asg_access_key_name = "aws"
 
   asg_instance_types_order = [
-    "g5.xlarge",
-    "g4dn.xlarge"
+    "g4dn.xlarge",
+    "g5.xlarge"
   ]
 
   asg_base_on_demand_instances = 1
-  asg_on_demand_percentage = 20
+  asg_on_demand_percentage = 10
 
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]
   asg_target_capacity = 3
+
 }
 
 # free queue configuration
