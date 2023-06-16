@@ -60,10 +60,12 @@ resource "aws_launch_template" "default" {
   image_id      = var.image_id
   key_name      = var.access_key_name
   user_data     = base64encode(data.template_file.asg_user_data.rendered)
-  # instance_market_options {
-  #   market_type = "spot"
-  # }
-
+  instance_market_options {
+    # market_type = "spot"
+    # spot_options {
+    #   max_price = var.max_price
+    # }
+  }
   block_device_mappings {
     device_name = "/dev/xvda"
     ebs {
@@ -71,6 +73,7 @@ resource "aws_launch_template" "default" {
       delete_on_termination = true
     }
   }
+
   iam_instance_profile {
     name = aws_iam_instance_profile.asg_instance_profile.name
   }
@@ -151,6 +154,23 @@ resource "aws_autoscaling_policy" "default" {
           }
         }
       }
+
+      # metrics {
+      #   id          = "mPremium"
+      #   label       = "premium_users_visible_messages"
+      #   return_data = false
+      #   metric_stat {
+      #     stat = "Average"
+      #     metric {
+      #       namespace   = "AWS/SQS"
+      #       metric_name = "ApproximateNumberOfMessagesVisible"
+      #       dimensions {
+      #         name  = "QueueName"
+      #         value = var.premium_users_sqs_queue_name
+      #       }
+      #     }
+      #   }
+      # }
 
       metrics {
         id          = "nWorkers"

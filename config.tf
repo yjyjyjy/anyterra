@@ -22,7 +22,7 @@ locals {
     "subnet-0b6ff9dd7da01e5da",
     "subnet-0930257763db324ff",
     "subnet-0a7a2f217776c31ed",
-  ]
+  ] # NOTICE: FILL
 }
 
 # asg configuration
@@ -46,7 +46,6 @@ locals {
 	  "0.0.0.0/0"
   ]
   asg_target_capacity = 5
-
 }
 
 # free queue configuration
@@ -64,21 +63,37 @@ locals {
   free_queue_dlq_delay_seconds              = 0
 }
 
+# premium queue configuration
+# locals {
+#   premium_queue_visibility_timeout_seconds = 90
+#   premium_queue_message_retention_seconds  = 86400 # 1 Day = 86,400 Seconds
+#   premium_queue_receive_wait_time_seconds  = 0
+#   premium_queue_max_message_size           = 262144
+#   premium_queue_delay_seconds              = 0
+
+#   premium_queue_dlq_visibility_timeout_seconds = 30
+#   premium_queue_dlq_message_retention_seconds  = 345600 # 4 Days = 345600 Seconds
+#   premium_queue_dlq_receive_wait_time_seconds  = 0
+#   premium_queue_dlq_max_message_size           = 262144
+#   premium_queue_dlq_delay_seconds              = 0
+
+# }
+
 # workers task definition configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real-free:v1"
-  task_manager_cmd                = ""
-  task_manager_cpu                = "1024" # 2vCPU
-  task_manager_memory             = "2048"
-  task_manager_memory_reservation = "1024"
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-${replace(local.resource_prefix,"_","-")}:v1" # NOTICE: FILL
+  task_manager_cmd                = "" # NOTICE: FILL
+  task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
+  task_manager_memory             = "2048" # NOTICE: FILL
+  task_manager_memory_reservation = "1024" # NOTICE: FILL
 
   # worker configuration
-  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-real:v1"
-  worker_cmd                   = ""
-  worker_cpu                   = "2048"
-  worker_memory                = "10240"
-  worker_memory_reservation    = "6144"
+  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-dev:v2" # NOTICE: FILL
+  worker_cmd                   = "" # NOTICE: FILL
+  worker_cpu                   = "2048" # NOTICE: FILL
+  worker_memory                = "10240" # NOTICE: FILL
+  worker_memory_reservation    = "6144" # NOTICE: FILL
   worker_gpu_requirement_count = 1
 
   # # efs configuration
@@ -92,13 +107,13 @@ locals {
 }
 
 # redis configuration
-#locals {
-#  redis_node_type       = "cache.t3.medium"
-#  redis_num_cache_nodes = 1
-#
-#  redis_engine_version             = "7.0"
-#  redis_auto_minor_version_upgrade = true
-#  redis_apply_immediately          = true
-#
-#  redis_snapshot_retention_limit = 5
-#}
+locals {
+  redis_node_type       = "cache.t3.medium"
+  redis_num_cache_nodes = 1
+
+  redis_engine_version             = "7.0"
+  redis_auto_minor_version_upgrade = true
+  redis_apply_immediately          = true
+
+  redis_snapshot_retention_limit = 5
+}
