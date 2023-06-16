@@ -1,5 +1,5 @@
 locals {
-  resource_prefix               = "real_free"
+  resource_prefix               = "real_paid"
   sqs_queue_prefix              = "${local.resource_prefix}_queue"
 }
 
@@ -89,7 +89,7 @@ locals {
   task_manager_memory_reservation = "1024" # NOTICE: FILL
 
   # worker configuration
-  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-dev:v2" # NOTICE: FILL
+  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-real:v1" # NOTICE: FILL
   worker_cmd                   = "" # NOTICE: FILL
   worker_cpu                   = "2048" # NOTICE: FILL
   worker_memory                = "10240" # NOTICE: FILL

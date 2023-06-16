@@ -3,7 +3,7 @@ terraform {
     organization = "anydream-xyz"
 
     workspaces {
-      name = "anyterra-dev-free"
+      name = "anyterra-paid"
     }
   }
 }
