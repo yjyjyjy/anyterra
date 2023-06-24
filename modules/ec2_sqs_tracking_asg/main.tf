@@ -67,6 +67,15 @@ resource "aws_launch_template" "default" {
     # }
   }
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size           = 80
+      encrypted             = true
+      delete_on_termination = true
+    }
+  }
+
   iam_instance_profile {
     name = aws_iam_instance_profile.asg_instance_profile.name
   }
