@@ -33,6 +33,14 @@ locals {
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
   asg_access_key_name = "aws"                      # NOTICE: FILL
 
+  asg_instance_types_order = [
+    "g4dn.xlarge",
+    "g5.xlarge"
+  ]
+
+  asg_base_on_demand_instances = 1
+  asg_on_demand_percentage = 20
+
   asg_ssh_ips = [
 	  "0.0.0.0/0"
   ]                       # NOTICE: FILL
