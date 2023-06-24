@@ -56,16 +56,16 @@ resource "aws_security_group" "default" {
 
 resource "aws_launch_template" "default" {
   name_prefix   = local.launch_type_name_prefix
-  instance_type = var.instance_type
+  instance_type = var.instance_types_priority_order[0]
   image_id      = var.image_id
   key_name      = var.access_key_name
   user_data     = base64encode(data.template_file.asg_user_data.rendered)
-  instance_market_options {
-    market_type = "spot"
-    # spot_options {
-    #   max_price = var.max_price
-    # }
-  }
+  # instance_market_options {
+  #   market_type = "spot"
+  #   # spot_options {
+  #   #   max_price = var.max_price
+  #   # }
+  # }
 
   block_device_mappings {
     device_name = "/dev/xvda"
@@ -93,9 +93,30 @@ resource "aws_autoscaling_group" "default" {
   protect_from_scale_in = false
   health_check_type     = "EC2"
 
-  launch_template {
-    id      = aws_launch_template.default.id
-    version = aws_launch_template.default.latest_version
+  # launch_template {
+  #   id      = aws_launch_template.default.id
+  #   version = aws_launch_template.default.latest_version
+  # }
+
+  mixed_instances_policy {
+    instances_distribution {
+      on_demand_base_capacity = var.on_demand_base_number
+      on_demand_percentage_above_base_capacity = var.on_demand_percentage
+      spot_allocation_strategy = "capacity-optimized-prioritized"
+    }
+    launch_template {
+      launch_template_specification {
+        launch_template_id      = aws_launch_template.default.id
+        version                 = aws_launch_template.default.latest_version
+      }
+
+      dynamic "override" {
+        for_each = var.instance_types_priority_order
+        content {
+          instance_type = override.value
+        }
+      }
+    }
   }
 
   instance_refresh {
