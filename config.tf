@@ -27,7 +27,7 @@ locals {
 # asg configuration
 locals {
   asg_min_size = 1
-  asg_max_size = 3
+  asg_max_size = 2
 
   asg_instance_type   = "g4dn.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
@@ -73,14 +73,14 @@ locals {
 # workers task definitation configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager:v1" # NOTICE: FILL
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-waifu:v2" # NOTICE: FILL
   task_manager_cmd                = "" # NOTICE: FILL
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL
   task_manager_memory_reservation = "1024" # NOTICE: FILL
 
   # worker configuration
-  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker:v1" # NOTICE: FILL
+  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-waifu:v2" # NOTICE: FILL
   worker_cmd                   = "" # NOTICE: FILL
   worker_cpu                   = "2048" # NOTICE: FILL
   worker_memory                = "10240" # NOTICE: FILL

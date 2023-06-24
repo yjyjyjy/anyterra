@@ -67,6 +67,14 @@ resource "aws_launch_template" "default" {
     # }
   }
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 80
+      delete_on_termination = true
+    }
+  }
+
   iam_instance_profile {
     name = aws_iam_instance_profile.asg_instance_profile.name
   }
@@ -85,7 +93,7 @@ resource "aws_autoscaling_group" "default" {
   protect_from_scale_in = false
   health_check_type     = "EC2"
 
-  launch_template {
+ launch_template {
     id      = aws_launch_template.default.id
     version = aws_launch_template.default.latest_version
   }
@@ -111,7 +119,7 @@ resource "aws_autoscaling_policy" "default" {
         id          = "target"
         label       = "message_per_worker"
         return_data = true
-        expression  = "(mFree/3 + mPremium) / nWorkers"
+        expression  = "(mFree + mPremium*3) / nWorkers / 40"
       }
 
       metrics {
