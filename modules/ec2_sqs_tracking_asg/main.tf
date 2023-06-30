@@ -60,12 +60,12 @@ resource "aws_launch_template" "default" {
   image_id      = var.image_id
   key_name      = var.access_key_name
   user_data     = base64encode(data.template_file.asg_user_data.rendered)
-  instance_market_options {
-    market_type = "spot"
-    # spot_options {
-    #   max_price = var.max_price
-    # }
-  }
+  # instance_market_options {
+  #   market_type = "spot"
+  #   # spot_options {
+  #   #   max_price = var.max_price
+  #   # }
+  # }
   block_device_mappings {
     device_name = "/dev/xvda"
     ebs {

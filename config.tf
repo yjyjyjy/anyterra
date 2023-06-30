@@ -1,6 +1,6 @@
 locals {
-  resource_prefix               = "dev_free"
-  sqs_queue_prefix              = "dev_free_queue"
+  resource_prefix               = "olivia"
+  sqs_queue_prefix              = "olivia_queue"
   # artifact_bucket_name          = "anydream-gen-storage"
 }
 
@@ -27,7 +27,8 @@ locals {
   asg_min_size = 1
   asg_max_size = 2
 
-  asg_instance_type   = "g4dn.xlarge"
+  asg_instance_type   = "g5.2xlarge"
+  # asg_instance_type   = "g5.xlarge"
   asg_image_id        = "ami-0833412fdba53c144" # please refer to README
   asg_access_key_name = "aws"                      # NOTICE: FILL
 
@@ -71,17 +72,21 @@ locals {
 # workers task definition configuration
 locals {
   # task manager configuration
-  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-dev-free:v1" # NOTICE: FILL
+  # task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-real-paid:v2" # NOTICE: FILL
+  task_manager_docker_image       = "370137866648.dkr.ecr.us-east-1.amazonaws.com/manager-olivia:v2" # NOTICE: FILL
   task_manager_cmd                = "" # NOTICE: FILL
   task_manager_cpu                = "1024" # NOTICE: FILL 2vCPU
   task_manager_memory             = "2048" # NOTICE: FILL
   task_manager_memory_reservation = "1024" # NOTICE: FILL
 
   # worker configuration
-  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-dev:v2" # NOTICE: FILL
+  worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-olivia:v2" # NOTICE: FILL
+  # worker_docker_image          = "370137866648.dkr.ecr.us-east-1.amazonaws.com/worker-real:v2" # NOTICE: FILL
   worker_cmd                   = "" # NOTICE: FILL
-  worker_cpu                   = "2048" # NOTICE: FILL
-  worker_memory                = "10240" # NOTICE: FILL
+  # worker_cpu                   = "2048" # NOTICE: FILL
+  # worker_memory                = "10240" # NOTICE: FILL
+  worker_cpu                   = "6144" # NOTICE: FILL
+  worker_memory                = "26624" # NOTICE: FILL
   worker_memory_reservation    = "6144" # NOTICE: FILL
   worker_gpu_requirement_count = 1
 
